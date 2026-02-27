@@ -156,6 +156,7 @@ main {
 .hero-title span {
     background: var(--accent-gradient);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     display: inline-block;
     position: relative;
@@ -165,8 +166,53 @@ main {
     font-size: clamp(1.1rem, 2vw, 1.25rem);
     color: var(--text-secondary);
     max-width: 600px;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     line-height: 1.6;
+}
+
+/* Urgency Banner */
+.urgency-banner {
+    background: rgba(168, 85, 247, 0.05);
+    border: 1px solid rgba(168, 85, 247, 0.2);
+    border-radius: 16px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2rem;
+    width: 100%;
+    max-width: 500px;
+    backdrop-filter: blur(10px);
+    animation: pulseBorder 2.5s infinite alternate;
+}
+
+@keyframes pulseBorder {
+    0% {
+        border-color: rgba(168, 85, 247, 0.15);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2), 0 0 0 0 rgba(168, 85, 247, 0);
+    }
+
+    100% {
+        border-color: rgba(168, 85, 247, 0.5);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2), 0 0 15px rgba(168, 85, 247, 0.2);
+    }
+}
+
+.urgency-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.urgency-highlight {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #FBBF24;
+    margin-bottom: 0.5rem;
+}
+
+.urgency-action {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
 }
 
 /* Form */
@@ -184,12 +230,26 @@ main {
     backdrop-filter: blur(10px);
     transition: all 0.3s ease;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    animation: drawFocus 2.5s infinite alternate;
+}
+
+@keyframes drawFocus {
+    0% {
+        border-color: var(--glass-border);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 0 0 rgba(168, 85, 247, 0);
+    }
+
+    100% {
+        border-color: rgba(168, 85, 247, 0.5);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(168, 85, 247, 0.4);
+    }
 }
 
 .input-group:focus-within {
     border-color: rgba(99, 102, 241, 0.5);
     box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1), 0 10px 30px rgba(0, 0, 0, 0.5);
     background: rgba(255, 255, 255, 0.05);
+    animation: none;
 }
 
 input[type="email"] {
@@ -425,6 +485,8 @@ footer {
         border: none;
         box-shadow: none;
         gap: 0.75rem;
+        animation: none;
+        /* Disable on mobile div */
     }
 
     .input-group:focus-within {
@@ -440,6 +502,25 @@ footer {
         text-align: center;
         padding: 1.25rem 1rem;
         font-size: 1rem;
+        animation: drawFocusMobile 2.5s infinite alternate;
+    }
+
+    @keyframes drawFocusMobile {
+        0% {
+            border-color: var(--glass-border);
+            box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
+        }
+
+        100% {
+            border-color: rgba(99, 102, 241, 0.4);
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+        }
+    }
+
+    input[type="email"]:focus {
+        animation: none;
+        border-color: rgba(99, 102, 241, 0.5);
+        box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
     }
 
     .btn-primary {
