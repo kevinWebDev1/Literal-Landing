@@ -83,4 +83,41 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+    // Privacy Modal Logic
+    const privacyModal = document.getElementById('privacy-modal');
+    const privacyTrigger = document.getElementById('privacy-trigger');
+    const closeBtn = privacyModal.querySelector('.close-modal');
+    const modalBackdrop = privacyModal.querySelector('.modal-backdrop');
+
+    function openModal() {
+        privacyModal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+    }
+
+    function closeModal() {
+        privacyModal.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scrolling
+    }
+
+    if (privacyTrigger) {
+        privacyTrigger.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal();
+        });
+    }
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeModal);
+    }
+
+    if (modalBackdrop) {
+        modalBackdrop.addEventListener('click', closeModal);
+    }
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && privacyModal.classList.contains('active')) {
+            closeModal();
+        }
+    });
 });
