@@ -374,6 +374,7 @@ input[type="email"]::placeholder {
 .demo-section {
     width: 100%;
     max-width: 900px;
+    margin-bottom: 4rem;
     opacity: 0;
     transform: translateY(40px);
     animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
