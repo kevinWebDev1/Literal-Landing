@@ -224,9 +224,9 @@
         const SUPABASE_URL = 'https://eiyiuuisbykddfhleukd.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_oSnkHN0x957VBZgBf_5UIA_EiEhAmvp';
 
-        let supabase;
+        let db;
         if (SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
-            supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            db = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         }
 
         let currentPosts = [];
@@ -256,7 +256,7 @@
         }
 
         async function init() {
-            if (!supabase) {
+            if (!db) {
                 console.warn("⚠️ Supabase is not configured yet. Waiting for keys.");
                 document.getElementById('posts-container').innerHTML = `
                     <div class="glass-card" style="padding: 2rem; text-align: center; border-color: #ef4444;">
@@ -271,7 +271,7 @@
 
         async function fetchPosts() {
             // Fetch posts and get the count of replies for each post
-            const { data, error } = await supabase
+            const { data, error } = await db
                 .from('posts')
                 .select('*, replies(count)')
                 .order('created_at', { ascending: false });
@@ -323,16 +323,16 @@
             document.getElementById('post-list-view').style.display = 'none';
             document.getElementById('thread-view').style.display = 'flex';
 
-            if (!supabase) return;
+            if (!db) return;
 
             // Increment view count asynchronously
             const post = currentPosts.find(p => p.id === id);
             if (post) {
-                await supabase.from('posts').update({ views: (post.views || 0) + 1 }).eq('id', id);
+                await db.from('posts').update({ views: (post.views || 0) + 1 }).eq('id', id);
             }
 
             // Fetch the specific post and all its replies
-            const { data: postData, error: postError } = await supabase
+            const { data: postData, error: postError } = await db
                 .from('posts')
                 .select('*, replies(*)')
                 .eq('id', id)
@@ -419,7 +419,7 @@
 
         async function submitNewPost(e) {
             e.preventDefault();
-            if (!supabase) {
+            if (!db) {
                 alert("Please configure Supabase first by adding your keys to the code!");
                 return;
             }
@@ -432,7 +432,7 @@
             const tag = document.getElementById('post-tag').value;
             const content = document.getElementById('post-content').value;
 
-            const { error } = await supabase.from('posts').insert([
+            const { error } = await db.from('posts').insert([
                 { title, content, tag, author: CURRENT_USER, views: 0 }
             ]);
 
@@ -450,7 +450,7 @@
 
         async function submitReply(e) {
             e.preventDefault();
-            if (!supabase) {
+            if (!db) {
                 alert("Please configure Supabase first!");
                 return;
             }
@@ -461,7 +461,7 @@
 
             const content = document.getElementById('reply-input').value;
 
-            const { error } = await supabase.from('replies').insert([
+            const { error } = await db.from('replies').insert([
                 { post_id: currentThreadId, author: CURRENT_USER, content }
             ]);
 
