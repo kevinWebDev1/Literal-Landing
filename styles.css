@@ -1047,6 +1047,23 @@ select.form-input {
 
 /* Responsive */
 @media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1.5rem 5%;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem !important;
+    }
+
+    .nav-community-link {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.8rem;
+    }
+
     .input-group {
         flex-direction: column;
         border-radius: 16px;
