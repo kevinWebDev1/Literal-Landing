@@ -23,7 +23,7 @@
             flex-direction: column;
             gap: 1.5rem;
         }
-        
+
         .forum-header {
             display: flex;
             justify-content: space-between;
@@ -74,10 +74,25 @@
             font-weight: 600;
         }
 
-        .tag-question { background: rgba(59, 130, 246, 0.2); color: #60A5FA; }
-        .tag-bug { background: rgba(239, 68, 68, 0.2); color: #F87171; }
-        .tag-experience { background: rgba(16, 185, 129, 0.2); color: #34D399; }
-        .tag-accountability { background: rgba(168, 85, 247, 0.2); color: #C084FC; }
+        .tag-question {
+            background: rgba(59, 130, 246, 0.2);
+            color: #60A5FA;
+        }
+
+        .tag-bug {
+            background: rgba(239, 68, 68, 0.2);
+            color: #F87171;
+        }
+
+        .tag-experience {
+            background: rgba(16, 185, 129, 0.2);
+            color: #34D399;
+        }
+
+        .tag-accountability {
+            background: rgba(168, 85, 247, 0.2);
+            color: #C084FC;
+        }
 
         .post-stats {
             display: flex;
@@ -98,13 +113,15 @@
 
     <nav>
         <div class="logo">
-            <a href="index.html" style="text-decoration: none; display: flex; align-items: center; gap: 0.75rem; color: inherit;">
+            <a href="index.html"
+                style="text-decoration: none; display: flex; align-items: center; gap: 0.75rem; color: inherit;">
                 <img src="assets/logo.svg" alt="Literal Logo" class="logo-icon">
                 <span class="logo-text">Literal</span>
             </a>
         </div>
         <div class="nav-links">
-            <a href="index.html" class="nav-community-link" style="background: transparent; border: none; box-shadow: none;">Home</a>
+            <a href="index.html" class="nav-community-link"
+                style="background: transparent; border: none; box-shadow: none;">Home</a>
             <a href="community.html" class="nav-community-link">Discussion 💬</a>
         </div>
     </nav>
@@ -113,14 +130,18 @@
         <div class="forum-container" id="post-list-view">
             <div class="forum-header">
                 <div>
-                    <h1 class="hero-title" style="font-size: 2.5rem; margin-bottom: 0.5rem; text-align: left;">Community <span class="text-blue">Discussions</span></h1>
-                    <p class="hero-subtitle" style="text-align: left; margin: 0; font-size: 1.1rem;">Ask questions, share experiences, and report bugs.</p>
+                    <h1 class="hero-title" style="font-size: 2.5rem; margin-bottom: 0.5rem; text-align: left;">Community
+                        <span class="text-blue">Discussions</span>
+                    </h1>
+                    <p class="hero-subtitle" style="text-align: left; margin: 0; font-size: 1.1rem;">Ask questions,
+                        share experiences, and report bugs.</p>
                 </div>
-                <button class="cta-button" style="padding: 0.75rem 1.5rem; font-size: 1rem;" onclick="openNewPostModal()">
+                <button class="cta-button" style="padding: 0.75rem 1.5rem; font-size: 1rem;"
+                    onclick="openNewPostModal()">
                     + New Post
                 </button>
             </div>
-            
+
             <div id="posts-container" style="display: flex; flex-direction: column; gap: 1rem;">
                 <!-- Posts will be injected here via JS -->
             </div>
@@ -128,8 +149,9 @@
 
         <!-- Thread View (Hidden by default) -->
         <div class="forum-container" id="thread-view" style="display: none;">
-            <button class="cta-button secondary" onclick="closeThreadView()" style="align-self: flex-start; margin-bottom: 1rem;">← Back to Discussions</button>
-            
+            <button class="cta-button secondary" onclick="closeThreadView()"
+                style="align-self: flex-start; margin-bottom: 1rem;">← Back to Discussions</button>
+
             <div id="thread-main-post">
                 <!-- Main post will be injected here -->
             </div>
@@ -138,7 +160,10 @@
                 <h3 style="margin-bottom: 1.5rem; font-size: 1.3rem;">Add a Reply</h3>
                 <form id="reply-form" onsubmit="submitReply(event)">
                     <div style="position: relative;">
-                        <textarea id="reply-input" required placeholder="Write your reply..." rows="4" style="width: 100%; padding: 1.25rem; border-radius: 12px; border: 1px solid var(--glass-border); background: rgba(0,0,0,0.3); color: white; margin-bottom: 1rem; font-family: inherit; font-size: 1rem; resize: vertical; transition: all 0.3s ease;" onfocus="this.style.borderColor='rgba(99, 102, 241, 0.5)'; this.style.boxShadow='0 0 0 4px rgba(99, 102, 241, 0.1)';" onblur="this.style.borderColor='var(--glass-border)'; this.style.boxShadow='none';"></textarea>
+                        <textarea id="reply-input" required placeholder="Write your reply..." rows="4"
+                            style="width: 100%; padding: 1.25rem; border-radius: 12px; border: 1px solid var(--glass-border); background: rgba(0,0,0,0.3); color: white; margin-bottom: 1rem; font-family: inherit; font-size: 1rem; resize: vertical; transition: all 0.3s ease;"
+                            onfocus="this.style.borderColor='rgba(99, 102, 241, 0.5)'; this.style.boxShadow='0 0 0 4px rgba(99, 102, 241, 0.1)';"
+                            onblur="this.style.borderColor='var(--glass-border)'; this.style.boxShadow='none';"></textarea>
                     </div>
                     <div style="display: flex; justify-content: flex-end;">
                         <button type="submit" class="cta-button" style="padding: 0.75rem 2rem;">Post Reply</button>
@@ -157,7 +182,10 @@
         <div class="glass-card modal-content" style="width: 100%; max-width: 600px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
                 <h2 style="font-size: 1.8rem; margin: 0;">Create New Post</h2>
-                <button onclick="closeNewPostModal()" style="background: none; border: none; color: rgba(255,255,255,0.6); font-size: 2rem; cursor: pointer; transition: color 0.2s ease;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">&times;</button>
+                <button onclick="closeNewPostModal()"
+                    style="background: none; border: none; color: rgba(255,255,255,0.6); font-size: 2rem; cursor: pointer; transition: color 0.2s ease;"
+                    onmouseover="this.style.color='white'"
+                    onmouseout="this.style.color='rgba(255,255,255,0.6)'">&times;</button>
             </div>
             <form id="new-post-form" onsubmit="submitNewPost(event)">
                 <div class="form-group">
@@ -175,7 +203,8 @@
                 </div>
                 <div class="form-group" style="margin-bottom: 2rem;">
                     <label class="form-label">Details</label>
-                    <textarea id="post-content" class="form-input" required placeholder="Provide more details..." rows="5" style="resize: vertical; min-height: 120px;"></textarea>
+                    <textarea id="post-content" class="form-input" required placeholder="Provide more details..."
+                        rows="5" style="resize: vertical; min-height: 120px;"></textarea>
                 </div>
                 <div style="display: flex; justify-content: flex-end; gap: 1rem;">
                     <button type="button" onclick="closeNewPostModal()" class="cta-button secondary">Cancel</button>
@@ -192,9 +221,9 @@
         // 🛠️ SUPABASE CONFIGURATION
         // ==========================================
         // Paste your Supabase URL and Anon Key here
-        const SUPABASE_URL = 'YOUR_SUPABASE_URL';
-        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
-        
+        const SUPABASE_URL = 'https://eiyiuuisbykddfhleukd.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_oSnkHN0x957VBZgBf_5UIA_EiEhAmvp';
+
         let supabase;
         if (SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
             supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -258,17 +287,17 @@
         function renderPosts() {
             const container = document.getElementById('posts-container');
             container.innerHTML = '';
-            
+
             if (currentPosts.length === 0) {
-                 container.innerHTML = `<p style="text-align:center; color:var(--text-secondary); padding: 2rem;">No discussions yet. Be the first to post!</p>`;
-                 return;
+                container.innerHTML = `<p style="text-align:center; color:var(--text-secondary); padding: 2rem;">No discussions yet. Be the first to post!</p>`;
+                return;
             }
 
             currentPosts.forEach(post => {
                 const card = document.createElement('div');
                 card.className = 'glass-card post-card';
                 card.onclick = () => openThread(post.id);
-                
+
                 const replyCount = post.replies && post.replies[0] ? post.replies[0].count : 0;
 
                 card.innerHTML = `
@@ -320,7 +349,7 @@
         function renderThreadContent(post) {
             const mainContainer = document.getElementById('thread-main-post');
             const repliesContainer = document.getElementById('thread-replies');
-            
+
             mainContainer.innerHTML = `
                 <div class="glass-card" style="margin-bottom: 2rem; padding: 2rem;">
                     <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
@@ -340,7 +369,7 @@
                 </div>
             `;
 
-            const sortedReplies = (post.replies || []).sort((a,b) => new Date(a.created_at) - new Date(b.created_at));
+            const sortedReplies = (post.replies || []).sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
 
             let repliesHtml = `
                 <h3 style="font-size: 1.4rem; font-weight: 600; margin-bottom: 1.5rem;">Replies (${sortedReplies.length})</h3>
@@ -364,7 +393,7 @@
                 `;
             });
 
-            if(sortedReplies.length === 0) {
+            if (sortedReplies.length === 0) {
                 repliesHtml += `<p style="color: var(--text-secondary); font-style: italic;">No replies yet. Be the first to reply!</p>`;
             }
 
@@ -414,7 +443,7 @@
                 await fetchPosts();
                 closeNewPostModal();
             }
-            
+
             submitBtn.disabled = false;
             submitBtn.innerText = "Post";
         }
@@ -431,7 +460,7 @@
             submitBtn.innerText = "Posting...";
 
             const content = document.getElementById('reply-input').value;
-            
+
             const { error } = await supabase.from('replies').insert([
                 { post_id: currentThreadId, author: CURRENT_USER, content }
             ]);
