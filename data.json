@@ -1,0 +1,75 @@
+[
+  {
+    "id": 1,
+    "title": "How do I whitelist specific educational channels on YouTube Study Mode?",
+    "content": "I'm trying to use Literal for studying, but I need access to Khan Academy and CrashCourse on YouTube without falling into a recommended video rabbit hole. How do I whitelist just those channels?",
+    "tag": "Question",
+    "author": "FocusNinja",
+    "timestamp": "2026-06-06T10:00:00Z",
+    "views": 145,
+    "replies": [
+      {
+        "id": 101,
+        "author": "LiteralSupport",
+        "content": "Hey FocusNinja! You can whitelist channels by pasting their specific URL into the 'Allowed URLs' section in your dashboard settings. Literal's AI will then allow videos from that specific channel ID while blocking the rest.",
+        "timestamp": "2026-06-06T10:30:00Z"
+      },
+      {
+        "id": 102,
+        "author": "MedStudent24",
+        "content": "I tried this and it works perfectly for my study playlists!",
+        "timestamp": "2026-06-06T11:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "[BUG] Token balance not updating immediately after a successful pledge",
+    "content": "I just successfully completed a 2-hour deep work session and unlocked my phone, but my token balance in the app didn't update right away. I had to pull to refresh to see the new tokens.",
+    "tag": "Bug Report",
+    "author": "AlexD",
+    "timestamp": "2026-06-06T07:00:00Z",
+    "views": 89,
+    "replies": [
+      {
+        "id": 201,
+        "author": "LiteralDev",
+        "content": "Thanks for reporting this AlexD! This is a known issue with the current build. A fix is already merged and will be included in the next Play Store update.",
+        "timestamp": "2026-06-06T08:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "My experience after 30 days of using Literal. Total game changer.",
+    "content": "I've been struggling with ADHD and endless doomscrolling on reels/shorts for years. I set up a hard-lock pledge where my friend holds the unlock key. In the past 30 days, my screen time went from 6 hours to 1.5 hours. The forced friction works.",
+    "tag": "Experience",
+    "author": "MedStudent24",
+    "timestamp": "2026-06-05T12:00:00Z",
+    "views": 1205,
+    "replies": [
+      {
+        "id": 301,
+        "author": "RahulK",
+        "content": "That's amazing! Did you start with small pledges or go straight to 30 days?",
+        "timestamp": "2026-06-05T14:00:00Z"
+      },
+      {
+        "id": 302,
+        "author": "MedStudent24",
+        "content": "@RahulK I started with 2-hour study blocks for the first week, then escalated it. Having my friend as the keyholder was the crucial part.",
+        "timestamp": "2026-06-05T15:30:00Z"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Looking for an accountability partner (Keyholder)! GMT+5:30 timezone",
+    "content": "Hey everyone, I need someone strict to hold my unlock code. I am studying for exams and need to lock my social media apps from 9 AM to 5 PM every day. Anyone available to be my keyholder?",
+    "tag": "Accountability",
+    "author": "RahulK",
+    "timestamp": "2026-06-04T09:00:00Z",
+    "views": 210,
+    "replies": []
+  }
+]

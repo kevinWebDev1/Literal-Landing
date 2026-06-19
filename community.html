@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community | Literal App</title>
+    <meta name="description"
+        content="Join the Literal community to ask questions, report bugs, and share your experiences with the ultimate accountability app.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Specific styles for Community Page */
+        .forum-container {
+            width: 100%;
+            max-width: 1000px;
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .forum-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .post-card {
+            display: flex;
+            justify-content: space-between;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .post-card:hover {
+            transform: translateX(5px);
+            border-color: rgba(99, 102, 241, 0.6);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .post-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .post-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .post-meta {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .tag {
+            padding: 0.2rem 0.6rem;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .tag-question { background: rgba(59, 130, 246, 0.2); color: #60A5FA; }
+        .tag-bug { background: rgba(239, 68, 68, 0.2); color: #F87171; }
+        .tag-experience { background: rgba(16, 185, 129, 0.2); color: #34D399; }
+        .tag-accountability { background: rgba(168, 85, 247, 0.2); color: #C084FC; }
+
+        .post-stats {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            gap: 0.3rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="blob-bg"></div>
+    <div class="blob-bg blob-2"></div>
+    <div class="noise-overlay"></div>
+
+    <nav>
+        <div class="logo">
+            <a href="index.html" style="text-decoration: none; display: flex; align-items: center; gap: 0.75rem; color: inherit;">
+                <img src="assets/logo.svg" alt="Literal Logo" class="logo-icon">
+                <span class="logo-text">Literal</span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="index.html" class="nav-community-link" style="background: transparent; border: none; box-shadow: none;">Home</a>
+            <a href="community.html" class="nav-community-link">Discussion 💬</a>
+        </div>
+    </nav>
+
+    <main style="align-items: flex-start; justify-content: flex-start;">
+        <div class="forum-container" id="post-list-view">
+            <div class="forum-header">
+                <div>
+                    <h1 class="hero-title" style="font-size: 2.5rem; margin-bottom: 0.5rem; text-align: left;">Community <span class="text-blue">Discussions</span></h1>
+                    <p class="hero-subtitle" style="text-align: left; margin: 0; font-size: 1.1rem;">Ask questions, share experiences, and report bugs.</p>
+                </div>
+                <button class="cta-button" style="padding: 0.75rem 1.5rem; font-size: 1rem;" onclick="openNewPostModal()">
+                    + New Post
+                </button>
+            </div>
+            
+            <div id="posts-container" style="display: flex; flex-direction: column; gap: 1rem;">
+                <!-- Posts will be injected here via JS -->
+            </div>
+        </div>
+
+        <!-- Thread View (Hidden by default) -->
+        <div class="forum-container" id="thread-view" style="display: none;">
+            <button class="cta-button secondary" onclick="closeThreadView()" style="align-self: flex-start; margin-bottom: 1rem;">← Back to Discussions</button>
+            
+            <div id="thread-main-post">
+                <!-- Main post will be injected here -->
+            </div>
+
+            <div class="glass-card" style="margin-top: 1rem; margin-bottom: 3rem; padding: 2rem;">
+                <h3 style="margin-bottom: 1.5rem; font-size: 1.3rem;">Add a Reply</h3>
+                <form id="reply-form" onsubmit="submitReply(event)">
+                    <div style="position: relative;">
+                        <textarea id="reply-input" required placeholder="Write your reply..." rows="4" style="width: 100%; padding: 1.25rem; border-radius: 12px; border: 1px solid var(--glass-border); background: rgba(0,0,0,0.3); color: white; margin-bottom: 1rem; font-family: inherit; font-size: 1rem; resize: vertical; transition: all 0.3s ease;" onfocus="this.style.borderColor='rgba(99, 102, 241, 0.5)'; this.style.boxShadow='0 0 0 4px rgba(99, 102, 241, 0.1)';" onblur="this.style.borderColor='var(--glass-border)'; this.style.boxShadow='none';"></textarea>
+                    </div>
+                    <div style="display: flex; justify-content: flex-end;">
+                        <button type="submit" class="cta-button" style="padding: 0.75rem 2rem;">Post Reply</button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="thread-replies">
+                <!-- Replies will be injected here -->
+            </div>
+        </div>
+    </main>
+
+    <!-- New Post Modal -->
+    <div id="new-post-modal" class="modal-overlay" style="display: none;">
+        <div class="glass-card modal-content" style="width: 100%; max-width: 600px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <h2 style="font-size: 1.8rem; margin: 0;">Create New Post</h2>
+                <button onclick="closeNewPostModal()" style="background: none; border: none; color: rgba(255,255,255,0.6); font-size: 2rem; cursor: pointer; transition: color 0.2s ease;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">&times;</button>
+            </div>
+            <form id="new-post-form" onsubmit="submitNewPost(event)">
+                <div class="form-group">
+                    <label class="form-label">Title</label>
+                    <input type="text" id="post-title" class="form-input" required placeholder="What's on your mind?">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Category</label>
+                    <select id="post-tag" class="form-input" required>
+                        <option value="Question">Question</option>
+                        <option value="Bug Report">Bug Report</option>
+                        <option value="Experience">Experience</option>
+                        <option value="Accountability">Accountability</option>
+                    </select>
+                </div>
+                <div class="form-group" style="margin-bottom: 2rem;">
+                    <label class="form-label">Details</label>
+                    <textarea id="post-content" class="form-input" required placeholder="Provide more details..." rows="5" style="resize: vertical; min-height: 120px;"></textarea>
+                </div>
+                <div style="display: flex; justify-content: flex-end; gap: 1rem;">
+                    <button type="button" onclick="closeNewPostModal()" class="cta-button secondary">Cancel</button>
+                    <button type="submit" class="cta-button">Post</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        // ==========================================
+        // 🛠️ SUPABASE CONFIGURATION
+        // ==========================================
+        // Paste your Supabase URL and Anon Key here
+        const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+        
+        let supabase;
+        if (SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
+            supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        }
+
+        let currentPosts = [];
+        let currentThreadId = null;
+        const CURRENT_USER = "GuestUser"; // Mock user for now
+
+        // Format relative time (e.g., "2 hours ago")
+        function timeAgo(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const seconds = Math.round((now - date) / 1000);
+            const minutes = Math.round(seconds / 60);
+            const hours = Math.round(minutes / 60);
+            const days = Math.round(hours / 24);
+
+            if (seconds < 60) return "Just now";
+            if (minutes < 60) return `${minutes} min ago`;
+            if (hours < 24) return `${hours} hours ago`;
+            if (days === 1) return "1 day ago";
+            return `${days} days ago`;
+        }
+
+        function getTagClass(tag) {
+            if (tag === 'Bug Report') return 'tag-bug';
+            if (tag === 'Question' || tag === 'Accountability') return 'tag-question';
+            return 'tag-experience';
+        }
+
+        async function init() {
+            if (!supabase) {
+                console.warn("⚠️ Supabase is not configured yet. Waiting for keys.");
+                document.getElementById('posts-container').innerHTML = `
+                    <div class="glass-card" style="padding: 2rem; text-align: center; border-color: #ef4444;">
+                        <h3 style="color: #f87171; margin-bottom: 1rem;">Database Not Connected</h3>
+                        <p style="color: var(--text-secondary);">Please add your SUPABASE_URL and SUPABASE_ANON_KEY to the code to view and post discussions.</p>
+                    </div>
+                `;
+                return;
+            }
+            await fetchPosts();
+        }
+
+        async function fetchPosts() {
+            // Fetch posts and get the count of replies for each post
+            const { data, error } = await supabase
+                .from('posts')
+                .select('*, replies(count)')
+                .order('created_at', { ascending: false });
+
+            if (error) {
+                console.error("Error fetching posts:", error);
+                return;
+            }
+            currentPosts = data;
+            renderPosts();
+        }
+
+        function renderPosts() {
+            const container = document.getElementById('posts-container');
+            container.innerHTML = '';
+            
+            if (currentPosts.length === 0) {
+                 container.innerHTML = `<p style="text-align:center; color:var(--text-secondary); padding: 2rem;">No discussions yet. Be the first to post!</p>`;
+                 return;
+            }
+
+            currentPosts.forEach(post => {
+                const card = document.createElement('div');
+                card.className = 'glass-card post-card';
+                card.onclick = () => openThread(post.id);
+                
+                const replyCount = post.replies && post.replies[0] ? post.replies[0].count : 0;
+
+                card.innerHTML = `
+                    <div class="post-info">
+                        <div class="post-title">${post.title}</div>
+                        <div class="post-meta">
+                            <span class="tag ${getTagClass(post.tag)}">${post.tag}</span>
+                            <span>Posted by <strong>${post.author}</strong></span>
+                            <span>• ${timeAgo(post.created_at)}</span>
+                        </div>
+                    </div>
+                    <div class="post-stats">
+                        <span>💬 ${replyCount} Replies</span>
+                        <span>👀 ${post.views || 0} Views</span>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        async function openThread(id) {
+            currentThreadId = id;
+            document.getElementById('post-list-view').style.display = 'none';
+            document.getElementById('thread-view').style.display = 'flex';
+
+            if (!supabase) return;
+
+            // Increment view count asynchronously
+            const post = currentPosts.find(p => p.id === id);
+            if (post) {
+                await supabase.from('posts').update({ views: (post.views || 0) + 1 }).eq('id', id);
+            }
+
+            // Fetch the specific post and all its replies
+            const { data: postData, error: postError } = await supabase
+                .from('posts')
+                .select('*, replies(*)')
+                .eq('id', id)
+                .single();
+
+            if (postError) {
+                console.error("Error fetching thread:", postError);
+                return;
+            }
+
+            renderThreadContent(postData);
+        }
+
+        function renderThreadContent(post) {
+            const mainContainer = document.getElementById('thread-main-post');
+            const repliesContainer = document.getElementById('thread-replies');
+            
+            mainContainer.innerHTML = `
+                <div class="glass-card" style="margin-bottom: 2rem; padding: 2rem;">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+                        <div style="width: 48px; height: 48px; border-radius: 50%; background: var(--accent-gradient); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; font-weight: bold; box-shadow: 0 4px 10px rgba(99, 102, 241, 0.4);">
+                            ${post.author.charAt(0).toUpperCase()}
+                        </div>
+                        <div style="display: flex; flex-direction: column;">
+                            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                <strong style="font-size: 1.1rem;">${post.author}</strong>
+                                <span class="tag ${getTagClass(post.tag)}">${post.tag}</span>
+                            </div>
+                            <span style="color: var(--text-secondary); font-size: 0.9rem;">${timeAgo(post.created_at)}</span>
+                        </div>
+                    </div>
+                    <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem;">${post.title}</h2>
+                    <p style="color: rgba(255,255,255,0.9); line-height: 1.8; font-size: 1.05rem; white-space: pre-wrap;">${post.content}</p>
+                </div>
+            `;
+
+            const sortedReplies = (post.replies || []).sort((a,b) => new Date(a.created_at) - new Date(b.created_at));
+
+            let repliesHtml = `
+                <h3 style="font-size: 1.4rem; font-weight: 600; margin-bottom: 1.5rem;">Replies (${sortedReplies.length})</h3>
+                <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+            `;
+
+            sortedReplies.forEach(reply => {
+                repliesHtml += `
+                    <div class="glass-card" style="padding: 1.5rem; background: rgba(255,255,255,0.02); border-left: 3px solid rgba(99, 102, 241, 0.5);">
+                        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                            <div style="width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                                ${reply.author.charAt(0).toUpperCase()}
+                            </div>
+                            <div style="display: flex; flex-direction: column;">
+                                <strong>${reply.author}</strong>
+                                <span style="color: var(--text-secondary); font-size: 0.8rem;">${timeAgo(reply.created_at)}</span>
+                            </div>
+                        </div>
+                        <p style="margin: 0; font-size: 1rem; line-height: 1.6; color: rgba(255,255,255,0.85); white-space: pre-wrap;">${reply.content}</p>
+                    </div>
+                `;
+            });
+
+            if(sortedReplies.length === 0) {
+                repliesHtml += `<p style="color: var(--text-secondary); font-style: italic;">No replies yet. Be the first to reply!</p>`;
+            }
+
+            repliesHtml += `</div>`;
+            repliesContainer.innerHTML = repliesHtml;
+        }
+
+        function closeThreadView() {
+            currentThreadId = null;
+            document.getElementById('thread-view').style.display = 'none';
+            document.getElementById('post-list-view').style.display = 'flex';
+            fetchPosts(); // Refresh list to update views and reply counts
+        }
+
+        function openNewPostModal() {
+            document.getElementById('new-post-modal').style.display = 'flex';
+        }
+
+        function closeNewPostModal() {
+            document.getElementById('new-post-modal').style.display = 'none';
+            document.getElementById('new-post-form').reset();
+        }
+
+        async function submitNewPost(e) {
+            e.preventDefault();
+            if (!supabase) {
+                alert("Please configure Supabase first by adding your keys to the code!");
+                return;
+            }
+
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.innerText = "Posting...";
+
+            const title = document.getElementById('post-title').value;
+            const tag = document.getElementById('post-tag').value;
+            const content = document.getElementById('post-content').value;
+
+            const { error } = await supabase.from('posts').insert([
+                { title, content, tag, author: CURRENT_USER, views: 0 }
+            ]);
+
+            if (error) {
+                console.error("Error creating post:", error);
+                alert("Failed to create post. Check console for details.");
+            } else {
+                await fetchPosts();
+                closeNewPostModal();
+            }
+            
+            submitBtn.disabled = false;
+            submitBtn.innerText = "Post";
+        }
+
+        async function submitReply(e) {
+            e.preventDefault();
+            if (!supabase) {
+                alert("Please configure Supabase first!");
+                return;
+            }
+
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.innerText = "Posting...";
+
+            const content = document.getElementById('reply-input').value;
+            
+            const { error } = await supabase.from('replies').insert([
+                { post_id: currentThreadId, author: CURRENT_USER, content }
+            ]);
+
+            if (error) {
+                console.error("Error creating reply:", error);
+                alert("Failed to create reply.");
+            } else {
+                document.getElementById('reply-form').reset();
+                await openThread(currentThreadId); // Re-render thread with new reply
+            }
+
+            submitBtn.disabled = false;
+            submitBtn.innerText = "Post Reply";
+        }
+
+        // Run init on load
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+
+</html>
